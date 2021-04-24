@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styles from './ContactsList.module.scss';
 import { getContacts, deleteContact } from '../../redux/operations';
+import { filtredContactsSelector } from '../../redux/selectors';
 
 class ContactsList extends Component {
   componentDidMount() {
@@ -37,13 +38,9 @@ class ContactsList extends Component {
   }
 }
 
-const mapStateToProps = ({ contacts }) => {
-  return {
-    contacts: contacts.items.filter(item =>
-      item.name.toLowerCase().includes(contacts.filter.toLowerCase()),
-    ),
-  };
-};
+const mapStateToProps = state => ({
+  contacts: filtredContactsSelector(state),
+});
 
 export default connect(mapStateToProps, { deleteContact, getContacts })(
   ContactsList,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addContact } from '../../redux/operations';
+import { contactsSelector } from '../../redux/selectors';
 import styles from './Form.module.scss';
 
 class Form extends Component {
@@ -71,9 +72,7 @@ class Form extends Component {
   }
 }
 const mapStateToProps = state => ({
-  contacts: state.contacts,
+  contacts: contactsSelector(state),
 });
 
-const mapDispatchToProps = { addContact };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, { addContact })(Form);
